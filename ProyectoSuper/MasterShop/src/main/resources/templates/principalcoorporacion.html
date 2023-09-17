@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head>
+        <title>MasterShop</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        <!--Tailwind CSS-->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+        <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
+
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+        <!--Google Fonts-->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200&display=swap"
+            rel="stylesheet">
+        <!--Material Icons-->
+        <link
+            href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+            rel="stylesheet">
+        <style type="text/css">
+
+            .pagination{
+                display:flex;
+                padding-left:0;
+                list-style:none
+            }
+            .page-item:last-child
+
+            .page-link{
+                position:relative;
+                display:block;
+                color:#0d6efd;
+                text-decoration:none;
+                background-color:#fff;
+                border:1px solid #dee2e6;
+                transition:color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
+            }
+
+        </style>
+
+    </head>
+
+    <body class="relative min-h-screen pb-16 bg-white dark:bg-gray-900" style="font-family: Poppins;" id="body">
+        <nav  class="bg-white shadow dark:bg-gray-800">
+			
+            <div class="container px-6 py-4 mx-auto">
+                <div class="md:flex md:items-center md:justify-between">
+                    <div class="flex items-center justify-between">
+                        <div class="text-xl font-semibold text-gray-700"><a href="/servicio/MenuVenta/lista"
+                                                                            class="text-2xl font-bold text-gray-800 transition-colors duration-200 transform dark:text-white lg:text-xl hover:text-gray-700 dark:hover:text-gray-300">WARO shop</a>
+                        </div>
+                        <!-- Mobile menu button -->
+                        <div class="flex md:hidden"><button type="button"
+                                                            class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
+                                                            aria-label="toggle menu"><svg viewBox="0 0 24 24" class="w-6 h-6 fill-current">
+                                <path fill-rule="evenodd"
+                                      d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z">
+                                </path>
+                                </svg></button></div>
+                    </div>
+                    <!-- Mobile Menu open: "block" , Menu closed: "hidden" -->
+                    
+                    
+                    <div class="flex-1 md:flex md:items-center md:justify-between">
+                        <ul id="H" class="flex flex-col lg:ml-40 -mx-4 md:flex-row md:items-center md:mx-8" >
+							
+							
+                            <li  th:each="row:${listaEnlaces}">
+								   <a th:href="${row.ruta}" th:text="${row.descripcion}" 
+                                   class="px-2 py-1 mx-2 mt-2 text-sm font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700">
+                                    </a>
+                            </li>
+                          
+                                                                   
+                            <!--menu Desplegable-->     
+                               
+                          <!-- <div  class="relative">
+                                <li id="administrar"
+                                    class="px-2 py-1 mx-2 mt-2 text-sm cursor-pointer font-medium text-gray-700 transition-colors duration-200 transform rounded-md md:mt-0 dark:text-gray-200">
+                                    <a>Administrar</a>								
+                                </li>
+
+                                <div id="dropdown2" class="absolute top-7 left-3 z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-28 dark:bg-gray-700 dark:divide-gray-600">								
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
+                                        <a href="" class="flex justify-start items-center cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">							      	
+                                            Productos
+                                        </a>
+                                        <a href="" class="flex justify-start items-center cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">							      	
+                                            Usuarios
+                                        </a>
+                                    </ul>								    
+                                </div>							
+                            </div>
+                            -->
+                            
+                           <!--FIN menu Desplegable-->
+                           
+                            
+                        </ul>
+                        
+                        
+                        <div class="flex items-center mt-4 md:mt-0">
+
+                      
+                        
+                        <!--Inicio desplegable-->
+
+                            <div th:replace="principal :: usurariobarra"></div>
+                            
+                           <!--FIN Inicio desplegable-->
+                           
+                           
+                            <!--<button type="button" class="flex items-center focus:outline-none"
+                                    aria-label="toggle profile dropdown">
+                                    <div class="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full"><img
+                                                    src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+                                                    class="object-cover w-full h-full" alt="avatar"></div>
+                                    <h3 class="mx-2 text-sm font-medium text-gray-700 dark:text-gray-200 md:hidden">Jair
+                                            Cayahua </h3>
+                            </button>-->
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        
+      
+       
+        <div >
+			
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script   src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+		
+        </div>
+    </body>
+    
+    
+    
+    <script>
+        var userBtn = document.getElementById("dropdownDefault");
+        var lstUser = document.getElementById("dropdown");
+
+        var administrarBtn = document.getElementById("administrar");
+        var lstAdministrar = document.getElementById("dropdown2");
+
+        userBtn.onclick = () => {
+            lstUser.classList.toggle("hidden");
+        }
+
+          // administrarBtn.onclick = () => {
+     //       lstAdministrar.classList.toggle("hidden");
+      //  }
+      
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <script>
+	
+			// Initialization for ES Users
+		import {
+		  Carousel,
+		  initTE,
+		} from "tw-elements";
+		
+		initTE({ Carousel });
+	
+     </script>
+
+  
+
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+
+</html>

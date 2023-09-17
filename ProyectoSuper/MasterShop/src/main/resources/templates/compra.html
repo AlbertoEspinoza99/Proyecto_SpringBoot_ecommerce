@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="principal :: head"></head>
+
+
+
+    <body class="relative min-h-screen pb-20 bg-white dark:bg-gray-900" style="font-family: Poppins;">
+
+        <nav th:replace="principal :: nav"></nav>
+
+        <div class="flex items-center justify-center w-full">
+
+            <div class="max-w-screen mx-auto">
+
+                <div class="overflow-auto lg:overflow-visible mt-6 w-80">
+
+                    <div class="mt-12 mb-6 flex justify-center">
+                        <div class="mt-2 mb-2">
+                            <p class="text-2xl font-normal leading-7 text-yellow-500">Detalle del producto</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="w-80" th:each="row:${producto}">
+                            <form  >
+                                <input type="hidden"  id="idProducto"  th:value="${row.codigo}">
+                                 <input type="hidden"  id="idPrecio"  th:value="${row.precio}">
+                                <img class="w-80 text-center rounded-md h-48 xl:h-64" th:src="${row.imagen}" alt="T-Shirt">
+                                <div class="w-full list-group-item flex justify-between items-center mt-1">
+                                    <h4 class="mt-2 text-lg font-medium text-green-700 dark:text-green-500" ></h4>
+                                    <p class="text-blue-500 font-bold tracking-widest" ></p>
+                                </div>
+
+                                <p class="text-gray-700 dark:text-gray-200" ></p>
+
+                                <div class="w-full list-group-item flex justify-between mt-1">
+                                    <p class="text-gray-400">Proveedor:</p>
+                                   
+                                    <p class="text-gray-200 text-xs p-1 bg-gray-700 rounded-md" th:text="${row.proveedor.descripcion}" ></p>
+                                </div>
+                                <div class="w-full list-group-item flex justify-between mt-2">
+                                    <p class="text-gray-400">Categoría:</p>
+                                    <p class="text-gray-200 text-xs p-1 bg-gray-700 rounded-md" th:text="${row.categoria.descripcion}" ></p>
+                                </div>
+                                <div class="w-full list-group-item flex justify-between mt-2">
+                                    <p class="text-gray-200">
+                                        Cantidad: 
+                                    </p>
+                                    <input type="number" class="text-gray-800 w-10 font-bold focus:outline-0 text-left pl-1 rounded-md" id="idcantidad" name="cantidad" 
+                                           min="1" max="10" value="1">
+                                </div>
+                                <input type="text" id="idrespuestaCaja" th:value="${respuesta}"/>
+                                    <button id="idCarro"
+                                        class="flex items-center justify-center w-full px-2 py-2 mt-4 font-medium tracking-wide text-white capitalize transition-colors duration-800 transform bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700  hover:text-green-500"><svg
+                                            xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-1" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                        <path
+                                            d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                                        </svg><span class="mx-1 text-xs uppercase">Añadir al carrito</span></button>
+                                     
+                                    
+	                                 <button id="idRegresar" 
+	                                class="flex items-center justify-center w-full px-2 py-2 mt-4 font-medium tracking-wide text-white capitalize transition-colors duration-800 transform bg-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700  hover:text-green-500">
+	                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-1" viewBox="0 0 20 20" fill="currentColor">
+	                                <path  />
+	                                </svg>
+	                                <span class="mx-1 text-xs uppercase">Regresar</span>
+	                                </button>
+                               
+                               
+                               
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer th:replace="principal :: footer"></footer>
+    </body>
+    <div th:replace="principal :: script">
+    </div>
+
+    <script>
+        var userBtn = document.getElementById("dropdownDefault");
+        var lstUser = document.getElementById("dropdown");
+
+        userBtn.onclick = () => {
+            lstUser.classList.toggle("hidden");
+        }
+
+        var administrarBtn = document.getElementById("administrar");
+        var lstAdministrar = document.getElementById("dropdown2");
+
+        administrarBtn.onclick = () => {
+            lstAdministrar.classList.toggle("hidden");
+        }
+    </script>
+
+
+  <script>
+	  
+	  $(document).on("click","#idRegresar",function(){
+		  
+		   event.preventDefault();
+		  let d=1;		  
+		 console.log(d)
+		
+		 window.location.href='/servicio/MenuVenta/lista' 
+		  
+	  }); 
+	  
+	  
+	  
+	  
+	  $(document).on("click","#idCarro",function(){
+		 
+		 event.preventDefault();
+		 
+		 let cod=$("#idProducto").val();
+		 let pre=$("#idPrecio").val();
+		 let can=$("#idcantidad").val();
+		 
+		 let res=$("#idrespuestaCaja").val();
+		 
+		 $.get("/servicio/producto/carrito?codigo="+cod+"&cantidad="+can+"&precio="+pre,function(response){
+			 
+			 console.log(response);
+			  console.log(res);
+			 
+			$.get("/servicio/producto/actualizaCarrito?codigo="+cod,function(response){
+				 
+				  console.log(response);
+				$("#idrespuestaCaja").val(response);
+				 
+			});
+			 
+			 
+		 });
+		 
+		 
+		  
+	  });
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

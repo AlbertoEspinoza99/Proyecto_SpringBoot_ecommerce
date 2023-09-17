@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="principal :: head"></head>
+
+<body class="relative min-h-screen pb-16 bg-white dark:bg-gray-900" style="font-family: Poppins;">
+
+	<nav th:replace="principal :: nav"></nav>
+	<div class="flex items-center justify-center p-12 py-6 mt-14">
+  <div class="mx-auto w-full max-w-screen-lg bg-gray-800 px-5 py-10 rounded-lg">
+    <div class="grid gap-5 md:grid-cols-2 md:gap-10 lg:gap-20">
+      <div class="flex justify-center md:justify-end">
+        <img class="w-full max-w-sm" src="https://images.vexels.com/media/users/3/199964/isolated/preview/ae782cab8ae7e722febb5869c09574cc-feliz-personaje-de-repartidor.png" alt="agradecer-compra" />
+      </div>
+      <div class="flex items-center">
+        <div class="mx-auto md:mx-0">
+          <h3 class="text-4xl font-bold text-white">Gracias por su compra</h3>
+          <p class="mt-6 max-w-[20rem] text-md text-white/80">Tu compra estará lista en 3 días y estaremos comunicándonos con usted para la entrega de los productos.</p>
+          <div class="mt-10 text-center mb-2">
+		<a th:href="@{/servicio/MenuVenta/lista}"
+			class="py-2 px-4 bg-green-600 rounded-md transition-colors duration-200 dark:text-gray-300 hover:bg-green-300 dark:hover:bg-green-700">Seguir
+			Comprando</a>
+
+	</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+	<!--<div class="w-full bg-gray-900 mt-72">
+		<p class="text-3xl font-normal leading-7 text-center text-white uppercase">Pago realizado</p>
+
+
+
+	</div>
+
+	<div class="mt-10 text-center mb-2">
+		<a th:href="@{/mensaje}"
+			class="py-2 px-4 bg-yellow-600 rounded-md transition-colors duration-200 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-yellow-700">Seguir
+			Comprando</a>
+
+	</div>-->
+
+	<footer th:replace="principal :: footer"></footer>
+</body>
+<script>
+	var userBtn = document.getElementById("dropdownDefault");
+	var lstUser = document.getElementById("dropdown");
+
+	var administrarBtn = document.getElementById("administrar");
+	var lstAdministrar = document.getElementById("dropdown2");
+
+	userBtn.onclick = () => {
+		lstUser.classList.toggle("hidden");
+	}
+
+	administrarBtn.onclick = () => {
+		lstAdministrar.classList.toggle("hidden");
+	}
+</script>
+
+</html>

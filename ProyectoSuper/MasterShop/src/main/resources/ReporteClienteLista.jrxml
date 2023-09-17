@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteClienteLista" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a084b99-067e-4570-b8d7-4b7fcc6dbe86">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="codigo" class="java.lang.Integer"/>
+	<field name="login" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
+	<field name="sexo.descripcion" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="rol" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="10" width="534" height="60" uuid="9581c5ba-1639-4890-910a-f41325db7a5b"/>
+				<textElement textAlignment="Center">
+					<font size="38" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente Lista]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="-12" y="16" width="71" height="30" uuid="70d82fdc-6498-4661-9e99-9950d9ac520b"/>
+				<textElement textAlignment="Center">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="19" width="60" height="30" uuid="a2b5718f-166e-436e-8beb-1055f5fc7472"/>
+				<textElement textAlignment="Center">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Login]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="19" width="90" height="30" uuid="b99e9de9-d2eb-4944-af61-4aa234657c24"/>
+				<textElement textAlignment="Center">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="14" width="80" height="34" uuid="66803d61-e77b-4a0e-ab60-c068d0bc113f"/>
+				<textElement textAlignment="Center">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellido]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="14" width="70" height="40" uuid="dec5fd14-9269-4b1f-a04e-733fb583bfa3"/>
+				<textElement textAlignment="Center">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sexo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="15" width="110" height="30" uuid="999e1bfe-7cd9-4dc6-a759-1b84a93d7261"/>
+				<textElement textAlignment="Center">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nacimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="16" width="50" height="30" uuid="59008208-1ac4-4da8-b7a3-3d5277cb720f"/>
+				<textElement textAlignment="Center">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rol]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-12" y="49" width="570" height="4" uuid="8e39b484-36f9-4234-ae83-3e210fd9df0a"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="-11" y="10" width="50" height="30" uuid="7adc468c-62bf-4570-86d3-0c6212bb551f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3f9c1586-a379-42b2-b72e-d3597e5f7f2a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="10" width="66" height="30" uuid="237df93f-28e3-4713-9058-1f18fdbb9c4c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="de830623-7750-42b5-b4e0-d287ed9abd62"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{login}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="10" width="90" height="30" uuid="431c6f06-c772-4109-affd-cbf82e6e91fc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="729a3733-5127-40fb-9ddb-8fabe21898fa"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="10" width="82" height="30" uuid="541e9cd9-058f-484b-85fb-d170592eedf3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dce2344e-743a-429e-84c9-345d3818783b"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="10" width="70" height="30" uuid="e28bfffe-4e72-40d6-938d-c20bdba1d17a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="17f703fe-ff97-4129-b547-9300b7fbe0b0"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{sexo.descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="10" width="80" height="30" uuid="38e6cea2-2364-444b-b4de-13feeab95199">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d9d5a01d-9374-451a-8a57-fcc5478b5370"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="10" width="70" height="30" uuid="33d85866-83e5-47ea-923f-75bd9b6eeff6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a30b3d0f-3080-4f2d-8ff6-5b481be8ec5a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{rol}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

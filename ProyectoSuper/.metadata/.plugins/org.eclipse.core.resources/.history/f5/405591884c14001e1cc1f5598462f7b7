@@ -1,0 +1,10 @@
+package com.mastershop.entity;
+
+public class CNTProducto {
+
+	private String producto;
+	
+	private int cantidad;
+	
+	
+}

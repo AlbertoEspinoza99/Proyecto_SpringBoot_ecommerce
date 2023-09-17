@@ -1,0 +1,36 @@
+package com.mastershop.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mastershop.dao.BoletaRepository;
+import com.mastershop.dao.DetalleBoletaRepository;
+import com.mastershop.entity.Boleta;
+
+@Service
+public class BoletaServices {
+	
+	@Autowired
+	private BoletaRepository repoBol;
+	
+	@Autowired
+	private DetalleBoletaRepository repoDet;
+	
+	
+	public void RegistrarBoleta(Boleta obj) {
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

@@ -1,0 +1,25 @@
+package com.mastershop.dao;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.mastershop.entity.Enlace;
+import com.mastershop.entity.Producto;
+import com.mastershop.entity.Usuario;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
+
+	@Query("select x from Usuario x where x.login=?1")
+	public Usuario usuarioPorlogin(String login);
+	
+	@Query("select x from RolEnlace e join e.enlace x where e.rol.codigo=?1")
+	public List<Enlace> listaDeEnlaceporcodigoRol(int cod);
+	
+	@Query("select x from Usuario x where x.codigo=?1")
+	public Usuario usuarioPorCodigo(int cod);
+	
+	@Query("select x from Producto x where x.codigo=?1")
+	public Producto productoPorCodigo(int cod);
+}

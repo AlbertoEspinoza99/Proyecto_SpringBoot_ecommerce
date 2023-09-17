@@ -1,0 +1,10 @@
+package com.mastershop.entity;
+
+public class CNTventa {
+
+	private String fecha;
+	private int cantidad;
+	
+	
+	
+}

@@ -1,0 +1,53 @@
+package com.mastershop.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.mastershop.entity.Cliente;
+import com.mastershop.entity.Enlace;
+import com.mastershop.entity.Usuario;
+import com.mastershop.services.ClienteServices;
+import com.mastershop.services.UsuarioServices;
+
+@SessionAttributes({"codUsu","login"})
+@Controller
+@RequestMapping("/ruta")
+public class RedireccionamientoController {
+
+	@Autowired
+	private ClienteServices serCli;
+	
+	@Autowired
+	private UsuarioServices serUsu;
+	
+	@RequestMapping("/direccion")
+	public String ruta01(Authentication auth,Model model) {
+		
+		String vLogin=auth.getName();
+		
+		
+		Cliente obj=serCli.clientexlogin(vLogin);
+		Usuario obj2=serUsu.usuarioPorlogin(vLogin);
+		
+		if(obj==null && obj2!=null) {
+			
+			List<Enlace> listaenlace=serUsu.listadeenlacePorCodigoRol(obj2.getRol().getCodigo());
+			
+			model.addAttribute("codUsu",obj2.getCodigo());
+			model.addAttribute("login",obj2.getLogin());
+			model.addAttribute("listaEnlaces",obj2.getLogin());
+			
+		}
+		
+		
+		return "pago";
+	}
+	
+	
+}

@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head th:replace="principal :: head"></head>
+
+    <body class="relative min-h-screen pb-16 bg-white dark:bg-gray-900" style="font-family: Poppins;">
+
+        <nav th:replace="principal :: nav"></nav>
+        <!-- component -->
+        <div class="w-full bg-gray-900 mt-72">
+            <div class="max-w-5xl mx-auto px-6 sm:px-6 lg:px-8">
+                <div class="bg-gray-900 w-full shadow rounded p-8 sm:p-12 -mt-72">
+                    <p class="text-3xl font-normal leading-7 text-center text-white uppercase">Mantenimiento de producto</p>
+
+
+                    <form id="formProducto" action="/CrudProducto/RegistrarEditar" method="post" th:object="pro:${listaPorCodigo}">
+                        <div class="md:flex items-center" style="margin-top: 33px;">
+
+                            <input th:field="*{codigo}" th:value="${pro.codigo}" id="inputCodigo" natype="text" name="inputCodigo"
+                                   class="hidden leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded" />
+                                   
+                                   <input th:value="${regla}" id="idparaRegistrarYborrar"
+                                   class="hidden leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded" />
+
+                            <div class="w-full md:w-1/2 flex flex-col">
+                                <label for="inputNombre" class="font-light leading-none text-gray-300">Nombre del
+                                    producto</label>
+                                <input th:field="*{nombre}" id="inputNombre" type="text" name="nomPro"
+                                       class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded" />
+                                <div class="text-gray-600" th:if="${#fields.hasErrors('nombre')}"
+                                     th:errors="*{nombre}"></div>
+                            </div>
+                            <div class="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
+                                <label for="inputDescripcion"
+                                       class="font-light leading-none text-gray-300">Descripción</label>
+                                <input th:field="*{descripcion}" id="inputDescripcion" type="text" name="descPro"
+                                       class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded" />
+                                <div class="text-gray-600" th:if="${#fields.hasErrors('descripcion')}"
+                                     th:errors="*{descripcion}"></div>
+                            </div>
+                        </div>
+                        <div class="md:flex items-center mt-6">
+                            <div class="w-full md:w-1/2 flex flex-col">
+                                <label for="inputPrecio" class="font-light leading-none text-gray-300">Precio</label>
+                                <input th:field="*{precio}" id="inputPrecio" type="number" step="0.01" name="prePro"
+                                       class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded" />
+                                <div class="text-gray-600" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">
+                                </div>
+                            </div>
+                            <div class="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
+                                <label for="inputImagen" class="font-light leading-none text-gray-300">URL Imagen</label>
+                                <input th:field="*{imagen}" id="inputImagen" type="text" name="imgPro"
+                                       class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded" />
+                                <div class="text-gray-600" th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:flex items-center mt-6">
+                            <div class="w-full md:w-1/2 flex flex-col">
+                                <label for="inputStock" class="font-light leading-none text-gray-300">Stock</label>
+                                <input th:field="*{stock}" id="inputStock" type="number" name="stockPro"
+                                       class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded" />
+                                <div class="text-gray-600" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}">
+                                </div>
+                            </div>
+                              <div class="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
+                                <label for="inputDireecion" class="font-light leading-none text-gray-300">Direccion</label>
+                                <select th:field="*{proveedor.direccion.codigo}" id="idDireecion" name="direccion"
+                                        class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded">
+                                    <option value="-1">Elige una direecion</option>
+                                    <option th:each="c:${listaDireccion}" th:value="${c.codigo}"
+                                            th:text="${c.descripcion}"></option>
+                                </select>
+                                <div class="text-gray-600" 
+                                    >
+                                </div>
+                            </div>
+                            <div class="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
+                                <label for="inputProveedor" class="font-light leading-none text-gray-300">Proveedor</label>
+                                <select id="idProveedor" name="cargoPro"
+                                        class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded">
+                                    <option value="-1">Elige un proveedor</option>
+                                   
+                                </select>
+                                <div class="text-gray-600" 
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:flex items-center mt-6">
+                            <div class="w-full md:w-1/2 flex flex-col">
+                                <label for="inputCategoria" class="font-light leading-none text-gray-300">Categoría</label>
+                                <select th:field="*{categoria.codigo}"   id="inputCategoria" name="catePro"
+                                        class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded">
+                                    <option value="-1">Elige una categoría</option>
+                                    <option th:each="c: ${listaCategoria}" th:value="${c.codigo}"
+                                            th:text="${c.descripcion}"></option>
+                                </select>
+                                <div class="text-gray-600" th:if="${#fields.hasErrors('categoria.codigo')}"
+                                     th:errors="*{categoria.codigo}">
+                                </div>
+                            </div>
+                            <div class="w-full md:w-1/2 flex flex-col md:ml-6 md:mt-0 mt-4">
+                                <label for="inputEstado" class="font-light leading-none text-gray-300">Estado</label>
+                                <select th:field="*{estado.codigo}" id="inputEstado" name="estPro"
+                                        class="leading-none text-gray-50 p-3 focus:outline-none focus:border-blue-700 mt-4 border-0 bg-gray-800 rounded">
+                                    <option value="-1">Elige un Estado</option>
+                                    <option th:each="c: ${listaEstado}" th:value="${c.codigo}"
+                                            th:text="${c.descripcion}"></option>
+                                </select>
+                                <div class="text-gray-600" th:if="${#fields.hasErrors('estado.codigo')}" th:errors="*{estado.codigo}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center w-full">
+                            <button type="submit"
+                                    class="mt-9 font-normal leading-none text-white py-4 px-10 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none">
+                                Procesar
+                            </button>
+                            <a href="/CrudProducto/lista"
+                               class="text-center ml-10 mt-9 font-normal leading-none text-white py-4 px-7 bg-blue-700 rounded hover:bg-blue-600 focus:ring-2 focus:ring-offset-2 focus:ring-blue-700 focus:outline-none">
+                                Volver al listado
+                            </a>
+                        </div>
+
+                    </form>
+                    <div th:if="${success != null}" class="w-full text-white bg-green-500 rounded-xl">
+                        <div class="mt-6 container flex items-center justify-between px-6 py-4 mx-auto">
+                            <div class="flex">
+                                <svg viewBox="0 0 40 40" class="w-6 h-6 fill-current">
+                                <path
+                                    d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z">
+                                </path>
+                                </svg>
+
+                                <p class="mx-3" th:text="${success}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:if="${error != null}" class="w-full text-white bg-red-500 rounded-xl">
+                        <div class="mt-6 container flex items-center justify-between px-6 py-4 mx-auto">
+                            <div class="flex">
+                                <svg viewBox="0 0 40 40" class="w-6 h-6 fill-current">
+                                <path
+                                    d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z">
+                                </path>
+                                </svg>
+
+                                <p class="mx-3" th:text="${error}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer th:replace="principal :: footer"></footer>
+
+
+    </body>
+
+    <script>
+        var userBtn = document.getElementById("dropdownDefault");
+        var lstUser = document.getElementById("dropdown");
+
+        userBtn.onclick = () => {
+            lstUser.classList.toggle("hidden");
+        }
+
+        var administrarBtn = document.getElementById("administrar");
+        var lstAdministrar = document.getElementById("dropdown2");
+
+        administrarBtn.onclick = () => {
+            lstAdministrar.classList.toggle("hidden");
+        }
+    </script>
+    
+    	<script  th:inline="javascript" th:if="${MENSAJE!=null}">
+		//recuperar atributo "MENSAJE"
+		let msg=/*[[${MENSAJE}]]*/
+		
+		toastr.success(msg, toastr.options = {
+			"timeOut": "2000",
+			"positionClass " : " toast-top-right ",
+		});
+	</script>
+
+  <script>
+	  
+	  let valor=-1;
+	  window.addEventListener('load', function() {
+    
+       let cd=$("#inputCodigo").val();
+        let registrarborrarDatos=$("#idparaRegistrarYborrar").val();
+        console.log(registrarborrarDatos);
+        
+      if(registrarborrarDatos!="nulos"){
+		   let cd=$("#inputCodigo").val();
+       
+          $.get("/CrudProducto/paraTraerElproveedor?cod="+cd,function(response){
+							
+								
+				valor=response.proveedor.codigo;
+			 $("#idDireecion").trigger("change");
+			 
+			}) 
+	  }else if(registrarborrarDatos=="nulos"){
+		  
+		  $("#inputCodigo").val(0);
+		  $("#inputNombre").val(null);
+		   $("#inputPrecio").val(0);
+		   $("#inputDescripcion").val(null);
+		   $("#inputImagen").val(null);
+		   $("#inputStock").val(0);
+		   $("#idDireecion").val(0);
+		   $("#inputProveedor").val(0);
+		   $("#inputCategoria").val(0);
+		   $("#inputEstado").val(0);
+		   
+	  }
+		    
+		   
+       });
+	  
+	  $(document).on("change","#idDireecion",function(){
+		  
+		  let cod=$(this).val();
+		 let codTipo=1;
+		  
+		    $.get("/CrudProducto/proveedorPorDireccion?cod="+cod,function(response){
+				
+				
+				$.each(response,function(index,item){
+					
+					$("#idProveedor").append("<option value='"+item.codigo+"'>"+item.descripcion+"</option>");
+					
+				})
+				
+				$("#idProveedor").val(valor);
+			})
+		  
+		  
+		  
+		  
+	  })
+	  
+	
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

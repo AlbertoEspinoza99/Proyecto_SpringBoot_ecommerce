@@ -1,0 +1,5 @@
+package com.mastershop.dao;
+
+public interface SexoRepository {
+
+}

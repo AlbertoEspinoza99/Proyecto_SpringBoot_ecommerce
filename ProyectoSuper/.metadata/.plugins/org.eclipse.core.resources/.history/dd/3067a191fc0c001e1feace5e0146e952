@@ -1,0 +1,50 @@
+package com.mastershop.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.mastershop.dao.BoletaRepository;
+import com.mastershop.dao.DetalleBoletaRepository;
+import com.mastershop.entity.Boleta;
+
+import jakarta.transaction.Transactional;
+
+@Service
+public class BoletaServices {
+	
+	@Autowired
+	private BoletaRepository repoBol;
+	
+	@Autowired
+	private DetalleBoletaRepository repoDet;
+	
+	@Transactional
+	public void RegistrarBoleta(Boleta obj) {
+		
+		try {
+			
+			//grabar boleta
+			repoBol.save(null);
+			
+			
+			
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

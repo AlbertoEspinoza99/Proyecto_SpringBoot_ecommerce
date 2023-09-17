@@ -1,0 +1,126 @@
+package com.mastershop.controller;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.mastershop.entity.Cliente;
+import com.mastershop.entity.Enlace;
+import com.mastershop.entity.Producto;
+import com.mastershop.entity.Sexo;
+import com.mastershop.services.ClienteServices;
+import com.mastershop.services.SexoServices;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+@RequestMapping("/CrudCliente")
+public class CrudCliente {
+
+	@Autowired
+	private ClienteServices serCli;
+	
+	@Autowired
+	private SexoServices serSexo;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
+	@RequestMapping("/lista")
+	public String listaCliente(Model model,HttpSession session) {
+		
+		List<Enlace> lista=(List<Enlace>) session.getAttribute("listaEnlaces");
+		
+		model.addAttribute("listaCliente", serCli.listaCLiente());
+		
+		model.addAttribute("listaEnlaces", lista);
+		
+		return "clienteLista";
+	}
+	
+	
+	@RequestMapping("/editar")
+	public String editarProducto(@RequestParam("codigo")int cod,Model model) {
+		
+		model.addAttribute("clientePorCodigo", serCli.clienteporCodigo(cod));
+		model.addAttribute("listaSexo", serSexo.listaSexo());
+				
+		return "crudCliente";
+		
+	}
+	
+	
+	
+	@RequestMapping("/edit")
+	public String editarPro(@RequestParam("codigo")int cod,
+			                @RequestParam("login")String login,
+			                @RequestParam("contra")String contrasena,
+			                @RequestParam("nombre")String nombre,
+			                @RequestParam("apellido")String apellido,
+			                @RequestParam("sexo.codigo")int sexo,
+			                @RequestParam("fecha")String fecha,
+			                @RequestParam("rol")String rol
+			                ,RedirectAttributes redirect) {
+		
+		
+		try {
+			
+			
+			Cliente hola=new Cliente();
+			
+			hola.setLogin(login);
+			hola.setClaveCliente(encoder.encode(contrasena));
+			hola.setNombre(nombre);
+			hola.setApellido(apellido);
+			
+			Sexo ss=new Sexo();
+			ss.setCodigo(sexo);
+			
+			hola.setSexo(ss);
+			
+			hola.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
+			hola.setRol(rol);
+			
+			
+			if(cod!=0) {
+				
+				hola.setCodigo(cod);
+				serCli.RegistrarCliente(hola);
+				redirect.addFlashAttribute("MENSAJE", "Se actualizo correctamente");
+			}else {
+				redirect.addFlashAttribute("MENSAJE", "hubo algun error");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		
+		
+		return "redirect:/CrudCliente/lista";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,156 @@
+package com.mastershop.controller;
+
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.mastershop.entity.Cliente;
+import com.mastershop.entity.Sexo;
+import com.mastershop.entity.Usuario;
+import com.mastershop.services.ClienteServices;
+import com.mastershop.services.SexoServices;
+import com.mastershop.services.UsuarioServices;
+
+@Controller
+@RequestMapping("/cliente")
+public class ClienteController {
+
+	@Autowired
+	private ClienteServices serCli;
+	
+	@Autowired
+	private SexoServices serSexo;
+	
+	@Autowired
+	private UsuarioServices serUsuario;
+	
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
+	@GetMapping("/registrar")
+	public String registro(Model model) {
+				
+		model.addAttribute("listaSexo", serSexo.listaSexo());
+		
+		
+		return "registro";
+	}
+	
+	
+    
+	public int Nocoincidencias(String login) {
+		
+		
+		List<Cliente> listaCliente=serCli.listaCLiente();
+		List<Usuario> listaUsuario=serUsuario.listaUsuario();
+		
+		
+		for(int i=0;i<listaCliente.size();i++) {
+			
+			
+			if (listaCliente.get(i).getLogin()==login) {
+				
+				return -1;
+			}
+			else {
+				
+				
+				for(int ii=0;i<listaUsuario.size();ii++) {
+					
+					
+					if (listaUsuario.get(ii).getLogin()==login) {
+						
+						return -1;
+						
+					}else {
+						return 1;
+					}
+					
+				}
+				
+			}
+		}
+		
+				
+		return -1;
+	}
+	
+	
+	
+	
+	@RequestMapping("/registrarCliente")
+	public String RegistrarCliente(@RequestParam("loginn")String login,
+			                       @RequestParam("contrasena")String contra,
+			                       @RequestParam("nombre")String nombre,
+			                       @RequestParam("apellido")String apellido,
+			                       @RequestParam("sexo")int codSexo,
+			                       @RequestParam("fecha")String fecha,
+			                       RedirectAttributes redirect) {
+		
+		try {
+			
+			
+			int resultado=Nocoincidencias(login);
+			
+			if(resultado==1) {
+				
+				Cliente cli=new Cliente();
+				
+				cli.setLogin(login);
+				cli.setClaveCliente(encoder.encode(contra));
+				cli.setNombre(nombre);
+				cli.setApellido(apellido);
+				
+				Sexo ss=new Sexo();
+				ss.setCodigo(codSexo);
+				
+				cli.setSexo(ss);
+				
+				cli.setFecha(new SimpleDateFormat("yyyy-MM-dd").parse(fecha));
+				cli.setRol("cliente");
+				
+			}else if(resultado==-1) {
+				
+				
+			redirect.addFlashAttribute("", "Elige otro login");
+			return "redirect:/cliente/registrar";			
+			}
+
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "redirect:/IniciarSesion/login";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
